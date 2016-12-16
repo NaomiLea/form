@@ -35,9 +35,12 @@ var girl = new Schema({
     }
 });
 
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/index.html');
+}).listen(port);
 
 
-app.post('/', urlencodedParser, function(req, res) {
+app.get('/', urlencodedParser, function(req, res) {
     var User = mongoose.model('User', girl);
     var girls = new User({
         name: req.body.name,
@@ -51,12 +54,10 @@ app.post('/', urlencodedParser, function(req, res) {
         console.log("saved")
     });
     console.log(girls);
+
 });
 
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
-}).listen(port);
 
 
 console.log("listening to port *" + port);
