@@ -32,7 +32,14 @@ var girl = new Schema({
     year: {
         type: Number,
         required: true
+    },
+    info: {
+      type: String
+    },
+    cs: {
+  
     }
+
 });
 
 app.get('/', function(req, res) {
@@ -40,20 +47,23 @@ app.get('/', function(req, res) {
 }).listen(port);
 
 
-app.get('/', urlencodedParser, function(req, res) {
+app.post('/', urlencodedParser, function(req, res) {
     var User = mongoose.model('User', girl);
     var girls = new User({
         name: req.body.name,
         email: req.body.email,
         school: req.body.school,
         year: req.body.year,
+        info: req.body.info,
+        cs: req.body.cs,
+
         admin: Boolean
     });
     girls.save(function(err) {
         if (err) throw err;
         console.log("saved")
     });
-    console.log(girls);
+    res.redirect("./submit.html")
 
 });
 
