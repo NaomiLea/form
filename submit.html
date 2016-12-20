@@ -7,11 +7,15 @@
 </head>
 
 <body>
-<h1 class="thanks">Thank you for registering</h1>
-<p>Recommend a friend</p>
-<form>
-  <input type="email" placeholder="Email"></input>
-  <input type="submit"></input>
+    <h1 class="thanks">Thank you for registering</h1>
+    <p>Recommend a friend</p>
+    <form method="POST" action="/send">
+        <input type="email" placeholder="Email" name="friend"></input>
+        <input type="submit"  id="email"></input>
+
+
+</form>
+
 
 </body>
 
