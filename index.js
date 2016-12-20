@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/users');
 
+
 app.use(express.static(__dirname + '/'));
 
 
@@ -34,21 +35,34 @@ var girl = new Schema({
         required: true
     },
     info: {
-      type: String
+        type: String
     },
     cs: {
-  
+        type: Boolean
     }
 
 });
+
+var User = mongoose.model('User', girl);
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 }).listen(port);
 
+app.get('/admin', function(req, res) {
+  res.sendFile(__dirname + '/admin.html');
+})
+
+app.get('/getData', function(req, res) {
+    User.find({}, function(err, array) {
+      console.log(array);
+      res.json(array);
+    })
+})
+
 
 app.post('/', urlencodedParser, function(req, res) {
-    var User = mongoose.model('User', girl);
+
     var girls = new User({
         name: req.body.name,
         email: req.body.email,
@@ -66,6 +80,7 @@ app.post('/', urlencodedParser, function(req, res) {
     res.redirect("./submit.html")
 
 });
+
 
 
 
